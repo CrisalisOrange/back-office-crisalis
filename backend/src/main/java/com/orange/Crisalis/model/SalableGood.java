@@ -4,35 +4,30 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "item")
-@Getter
-@Setter
+@Table(name = "bien_vendible")
+@Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Item {
+@Builder
+public class BienVendible {
     @Id
     @SequenceGenerator(
-            name = "item_sequence",
-            sequenceName = "item_sequence",
+            name = "bien_vendible_sequence",
+            sequenceName = "bien_vendible_sequence",
             allocationSize = 1,
             initialValue = 0
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "item_sequence"
+            generator = "bien_vendible_sequence"
     )
     private Long id;
     private String name;
     private BigDecimal price;
 
-/*    @OneToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
-    )
-    private Set<OrderDetail> orderDetails = new HashSet<>();*/
+    @Enumerated(EnumType.STRING)
+    private Type type;
 }
