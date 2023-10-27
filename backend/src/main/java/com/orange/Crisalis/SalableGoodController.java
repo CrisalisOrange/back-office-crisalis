@@ -1,6 +1,6 @@
 package com.orange.Crisalis;
 
-import com.orange.Crisalis.model.BienVendible;
+import com.orange.Crisalis.model.SalableGood;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,42 +13,37 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class BienVendibleController {
+public class SalableGoodController {
   @Autowired
-  private BienVendibleService bienVendibleService;
+  private SalableGoodService salableGoodService;
 
-  @GetMapping("/items")
-  public List<BienVendible> getAllItems() {
-    return bienVendibleService.findAll();
+  @GetMapping("/goods")
+  public List<SalableGood> getAllItems() {
+    return salableGoodService.findAll();
   }
 
-  @GetMapping("/saludo")
-  public String saludo() {
-    return "Hola";
+  @GetMapping("/goods/{id}")
+  public SalableGood getItemById(@PathVariable Long id) throws Exception {
+    return salableGoodService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
   }
 
-  @GetMapping("/items/{id}")
-  public BienVendible getItemById(@PathVariable Long id) throws Exception {
-    return bienVendibleService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
+  @PostMapping("/goods")
+  public SalableGood createItem(@RequestBody SalableGood salableGood) {
+    return salableGoodService.save(salableGood);
   }
 
-  @PostMapping("/items")
-  public BienVendible createItem(@RequestBody BienVendible bienVendible) {
-    return bienVendibleService.save(bienVendible);
-  }
-
-  @PutMapping("/items/{id}")
-  public BienVendible updateItem(@PathVariable Long id, @RequestBody BienVendible bienVendible) throws Exception {
-    BienVendible existingBienVendible = bienVendibleService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
+  @PutMapping("/goods/{id}")
+  public SalableGood updateItem(@PathVariable Long id, @RequestBody SalableGood salableGood) throws Exception {
+    SalableGood existingSalableGood = salableGoodService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
     /* Actulizar el item con los datos nuevos (analizar: puede directamente guardar el item recibido)
     existingItem.setName(product.getName());
     existingItem.setDescription(product.getDescription());
      */
-    return bienVendibleService.save(existingBienVendible);
+    return salableGoodService.save(existingSalableGood);
   }
 
-  @DeleteMapping("/items/{id}")
+  @DeleteMapping("/goods/{id}")
   public void deleteItem(@PathVariable Long id) {
-    bienVendibleService.deleteById(id);
+    salableGoodService.deleteById(id);
   }
 }

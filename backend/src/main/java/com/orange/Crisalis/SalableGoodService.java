@@ -1,7 +1,7 @@
 package com.orange.Crisalis;
 
-import com.orange.Crisalis.model.BienVendible;
-import com.orange.Crisalis.repository.BienVendibleRepository;
+import com.orange.Crisalis.model.SalableGood;
+import com.orange.Crisalis.repository.SalableGoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BienVendibleService {
+public class SalableGoodService {
 
   @Autowired
-  private BienVendibleRepository bienVendibleRepository;
+  private SalableGoodRepository salableGoodRepository;
 
-  public List<BienVendible> findAll() {
-    return bienVendibleRepository.findAll();
+  public List<SalableGood> findAll() {
+    return salableGoodRepository.findAll();
   }
 
-  public Optional<BienVendible> findById(Long id) {
-    return bienVendibleRepository.findById(id);
+  public Optional<SalableGood> findById(Long id) {
+    return salableGoodRepository.findById(id);
   }
 
-  public BienVendible save(BienVendible bienVendible) {
-    return bienVendibleRepository.save(bienVendible);
+  public SalableGood save(SalableGood salableGood) {
+    return salableGoodRepository.save(salableGood);
   }
 
   public void deleteById(Long id) {
-    bienVendibleRepository.deleteById(id);
+    salableGoodRepository.deleteById(id);
   }
 }
