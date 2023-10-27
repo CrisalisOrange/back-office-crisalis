@@ -31,5 +31,5 @@ public class OrderDetail {
             optional = false
     )
     @JoinColumn(name = "item_id")
-    private Item item;
+    private SalableGood item;
 }

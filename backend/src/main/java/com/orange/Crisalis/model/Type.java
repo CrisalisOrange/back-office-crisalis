@@ -1,5 +1,5 @@
 package com.orange.Crisalis.model;
 
-public enum Tipo {
-  PRODUCTO, SERVICIO
+public enum Type {
+  PRODUCT, SERVICE
 }
