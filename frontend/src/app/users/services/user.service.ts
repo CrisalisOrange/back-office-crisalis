@@ -9,7 +9,7 @@ import { IUserGet } from '../model/UserGet.model';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly URL: string = 'http://localhost:3000/user';
+  private readonly URL: string = 'http://localhost:4200/user';
 
   private userListData: BehaviorSubject<IUserGet[]> = new BehaviorSubject<
     IUserGet[]
@@ -33,7 +33,7 @@ export class UserService {
 
   create(user: IUser): Observable<ResponseCreateUser> {
     return this.http.post<ResponseCreateUser>(
-      'http://localhost:3000/auth/new',
+      'http://localhost:4200/auth/new',
       user
     );
   }

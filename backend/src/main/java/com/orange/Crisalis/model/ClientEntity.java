@@ -9,8 +9,8 @@ import java.util.Set;
 public class ClientEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "name")
-    @GenericGenerator(name="name", strategy="native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
+    @GenericGenerator(name="id", strategy="native")
     private int id;
 
     @NotNull

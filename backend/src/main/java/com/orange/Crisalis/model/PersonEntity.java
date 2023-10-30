@@ -1,5 +1,7 @@
 package com.orange.Crisalis.model;
 import com.orange.Crisalis.model.ClientEntity;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -7,10 +9,13 @@ import javax.validation.constraints.NotNull;
 public class PersonEntity extends ClientEntity {
 
     @NotNull
+    @Column(unique = true)
     private String lastName;
     @NotNull
+    @Column(unique = true)
     private String firstName;
     @NotNull
+    @Column(unique = true)
     private String dni;
     private boolean isActive;
 

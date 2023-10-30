@@ -3,10 +3,7 @@ package com.orange.Crisalis.model;
 import com.orange.Crisalis.model.ClientEntity;
 import lombok.Getter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -14,8 +11,10 @@ import java.time.LocalDate;
 public class EnterpriseEntity extends ClientEntity {
 
     @NotNull
+    @Column(unique = true)
     private String businessName;
     @NotNull
+    @Column(unique = true)
     private String cuit;
     @NotNull
     private LocalDate date;

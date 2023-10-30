@@ -10,7 +10,7 @@ import { EntityContainerComponent } from '../shared/components/entity-container-
   declarations: [
     UserListComponent,
     UserFormComponent,
-    EntityContainerComponent,
+    // EntityContainerComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [UserListComponent, UserFormComponent],

@@ -6,13 +6,9 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserListComponent } from './components/users-list/user-list.component';
 
 const routes: Routes = [
-  {
-    path: 'user',
-    component: UserListComponent,
-  },
+  { path: 'user', component: UserListComponent },
   { path: 'user/edit/:username', component: UserFormComponent },
-  { path: 'user/create', component: UserFormComponent },
-  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'user/create', component: UserFormComponent }
 ];
 
 @NgModule({
