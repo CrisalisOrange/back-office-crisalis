@@ -2,48 +2,50 @@ package com.orange.Crisalis;
 
 import com.orange.Crisalis.model.SalableGood;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
+@RequestMapping("/goods")
 public class SalableGoodController {
   @Autowired
   private SalableGoodService salableGoodService;
-
-  @GetMapping("/goods")
-  public List<SalableGood> getAllItems() {
+  @PreAuthorize("hasAnyRole('USER' ,'ADMIN')")
+  @GetMapping
+  public List<SalableGood> getAllSalableGoods() {
     return salableGoodService.findAll();
   }
-
-  @GetMapping("/goods/{id}")
-  public SalableGood getItemById(@PathVariable Long id) throws Exception {
+  @PreAuthorize("hasAnyRole('USER' ,'ADMIN')")
+  @GetMapping("/{id}")
+  public SalableGood getSalableGoodById(@PathVariable Long id) throws Exception {
     return salableGoodService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
   }
-
-  @PostMapping("/goods")
-  public SalableGood createItem(@RequestBody SalableGood salableGood) {
-    return salableGoodService.save(salableGood);
+  @PreAuthorize("hasRole('ADMIN')")
+  @Transactional
+  @PostMapping
+  public ResponseEntity<SalableGood> createSalableGood(@RequestBody SalableGood salableGood) {
+    SalableGood newSalabreGood = salableGoodService.save(salableGood);
+    return new ResponseEntity<>(newSalabreGood, HttpStatus.CREATED);
   }
-
-  @PutMapping("/goods/{id}")
-  public SalableGood updateItem(@PathVariable Long id, @RequestBody SalableGood salableGood) throws Exception {
+  @PreAuthorize("hasRole('ADMIN')")
+  @Transactional
+  @PutMapping("/{id}")
+  public SalableGood updateSalableGoods(@PathVariable Long id, @RequestBody SalableGood salableGood) throws Exception {
     SalableGood existingSalableGood = salableGoodService.findById(id).orElseThrow(() -> new Exception("Product not found with id: " + id));
-    /* Actulizar el item con los datos nuevos (analizar: puede directamente guardar el item recibido)
-    existingItem.setName(product.getName());
-    existingItem.setDescription(product.getDescription());
-     */
+    existingSalableGood.setName(salableGood.getName());
+    existingSalableGood.setType(salableGood.getType());
+    existingSalableGood.setPrice(salableGood.getPrice());
     return salableGoodService.save(existingSalableGood);
   }
-
-  @DeleteMapping("/goods/{id}")
-  public void deleteItem(@PathVariable Long id) {
+  @PreAuthorize("hasRole('ADMIN')")
+  @Transactional
+  @DeleteMapping("/{id}")
+  public void deleteSalableGood(@PathVariable Long id) {
     salableGoodService.deleteById(id);
   }
 }
