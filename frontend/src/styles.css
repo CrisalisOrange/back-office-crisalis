@@ -15,7 +15,7 @@ body {
 }
 
 [data-theme="light"] {
-  --background: #c4c4c4;
+  --background: #ebebeb;
   --banner-background: #949494;
   --banner-h2: rgb(34, 51, 59);
 }

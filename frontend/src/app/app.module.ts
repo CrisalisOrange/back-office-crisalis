@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { interceptorProvider } from './service/interceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { OrderComponent } from './order/order.component';
 import { UsersModule } from './users/users.module';
 
 import { UsersRoutingModule } from './users/users.routing.module';
@@ -19,8 +20,13 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ListTableComponent } from './list-table/list-table.component';
 
-const routes: Routes = [{ path: '', component: HomepageComponent }];
+
+const routes: Routes = [
+  { path: '', component: HomepageComponent },
+  
+];
 
 @NgModule({
   declarations: [
@@ -32,6 +38,8 @@ const routes: Routes = [{ path: '', component: HomepageComponent }];
     MenuItemComponent,
     LoginComponent,
     PageNotFoundComponent,
+    OrderComponent,
+    ListTableComponent,
   ],
   imports: [
     SweetAlert2Module.forRoot(),
