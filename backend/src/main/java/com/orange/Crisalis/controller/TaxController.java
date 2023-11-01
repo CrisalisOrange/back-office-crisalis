@@ -43,7 +43,7 @@ public class TaxController {
         if(taxService.verifyTaxById(id)) {
             return new ResponseEntity<>(taxService.getTaxById(id), HttpStatus.OK);
         }
-        return new ResponseEntity<>("Usuario inexistente", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Impuesto inexistente", HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
