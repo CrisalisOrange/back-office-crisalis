@@ -39,11 +39,11 @@ public class TaxController {
 
     @PreAuthorize("hasAnyRole('USER' ,'ADMIN')")
     @GetMapping("/{id}")
-    public TaxDto getTaxById(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getTaxById(@PathVariable("id") Integer id) {
         if(taxService.verifyTaxById(id)) {
-            return taxService.getTaxById(id);
+            return new ResponseEntity<>(taxService.getTaxById(id), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>("Usuario inexistente", HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -66,7 +66,7 @@ public class TaxController {
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateTax(@RequestBody TaxDto taxDto, @PathVariable("id") Integer id, BindingResult bindingResult) {
+    public ResponseEntity<Object> updateTax(@Valid @RequestBody TaxDto taxDto, @PathVariable("id") Integer id, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return new ResponseEntity<Object>(new ResponseMessage("Hubo un error en el envío", HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
