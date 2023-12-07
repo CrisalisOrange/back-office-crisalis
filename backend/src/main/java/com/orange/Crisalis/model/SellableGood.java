@@ -1,5 +1,6 @@
 package com.orange.Crisalis.model;
 
+import com.orange.Crisalis.enums.Type;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,6 +47,7 @@ public class SellableGood {
   @JoinTable(name = "sellablegoods_taxes",
       joinColumns = { @JoinColumn(name = "sellablegood_id") },
       inverseJoinColumns = { @JoinColumn(name = "tax_id") })
+  @ToString.Exclude
   private Set<Tax> taxes = new HashSet<>();
 
   public void addTax(Tax tax) {

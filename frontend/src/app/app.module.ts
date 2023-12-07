@@ -11,7 +11,7 @@ import { UpperbarComponent } from './components/upperbar/upperbar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './modules/menu/components/menu/menu.component';
 import { MenuItemComponent } from './modules/menu/components/menu-item/menu-item.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './modules/auth/components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -23,10 +23,25 @@ import { PersonFormComponent } from './modules/client/components/person-form/per
 import { SellableGoodsModule } from './modules/sellable-good/sellable-good.module';
 import { TaxListComponent } from './modules/tax/components/tax-list/tax-list.component';
 import { TaxCreateComponent } from './modules/tax/components/tax-create/tax-create.component';
-import { OrderComponent } from './order/order.component';
+import { OrderComponent } from './order/order-view/order.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { CreateOrderComponent } from './order/create-order/create-order.component';
 import { EditOrderComponent } from './order/edit-order/edit-order.component';
+import { ClientModule } from './modules/client/client.module';
+
+import { ForgotPasswordModalComponent } from './modules/auth/components/forgot-password-modal/forgot-password-modal.component';
+
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpLoaderFactory } from './helper/httpLoaderFactory';
+import { SharedModule } from './modules/shared/shared.module';
+import { ReportModule } from './modules/report/report.module';
+import { ReportRoutingModule } from './modules/report/report.routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [{ path: '', component: HomepageComponent }];
 
@@ -49,22 +64,39 @@ const routes: Routes = [{ path: '', component: HomepageComponent }];
     OrderComponent,
     OrderListComponent,
     CreateOrderComponent,
-    EditOrderComponent
+    EditOrderComponent,
+    ForgotPasswordModalComponent,
   ],
   imports: [
     SweetAlert2Module.forRoot(),
+    SharedModule,
     BrowserModule,
     UsersModule,
+    ReportModule,
     SellableGoodsModule,
     HttpClientModule,
     UsersRoutingModule,
     FormsModule,
+    ClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    TranslateModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+    BrowserAnimationsModule,
   ],
-  providers: [interceptorProvider],
+  providers: [interceptorProvider, TranslateService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('es');
+  }
+}
